@@ -67,10 +67,10 @@ pipeline {
             }
         }
 
-        // ❗ CORRECTION ICI
+        // ✅ CORRECTION tkinter
         stage('Run Application') {
             steps {
-                echo "Application tkinter ignorée (non supportée sur Jenkins)"
+                echo "Application tkinter ignorée (non compatible Jenkins)"
             }
         }
 
@@ -85,14 +85,14 @@ pipeline {
         }
     }
 
-    // ❗ CORRECTION ICI
+    // ✅ CORRECTION junit
     post {
         always {
             script {
                 if (fileExists('reports/resultats.xml')) {
                     junit 'reports/*.xml'
                 } else {
-                    echo "Aucun test à afficher"
+                    echo "Pas de résultats de test"
                 }
             }
         }
