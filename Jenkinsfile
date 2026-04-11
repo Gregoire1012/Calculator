@@ -51,7 +51,6 @@ pipeline {
                 sh '''
                     . ${VENV}/bin/activate
                     pip install pytest || true
-
                     pytest --junitxml=reports/resultats.xml || true
                 '''
             }
@@ -68,17 +67,10 @@ pipeline {
             }
         }
 
+        // ❗ CORRECTION ICI
         stage('Run Application') {
             steps {
-                echo "Lancement app Python..."
-                sh '''
-                    . ${VENV}/bin/activate
-                    if [ -f app.py ]; then
-                        python app.py &
-                    else
-                        echo "Pas de app.py trouvé"
-                    fi
-                '''
+                echo "Application tkinter ignorée (non supportée sur Jenkins)"
             }
         }
 
@@ -93,9 +85,16 @@ pipeline {
         }
     }
 
+    // ❗ CORRECTION ICI
     post {
         always {
-            junit 'reports/*.xml'
+            script {
+                if (fileExists('reports/resultats.xml')) {
+                    junit 'reports/*.xml'
+                } else {
+                    echo "Aucun test à afficher"
+                }
+            }
         }
         success {
             echo "Pipeline réussi ✅"
