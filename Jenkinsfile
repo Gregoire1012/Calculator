@@ -2,39 +2,38 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
-                git branch: 'main', 
-
-                url: 'https://github.com/Gregoire1012/Calculator.git'
+                echo "Code déjà cloné par Jenkins"
             }
         }
 
         stage('Build') {
             steps {
-                bat 'echo "building the app"'
+                sh 'echo "building the app"'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'echo "Running tests"'
+                sh 'echo "Running tests"'
             }
         }
 
         stage('Deploy') {
             steps {
-                bat 'echo "deploying"'
+                sh 'echo "deploying"'
             }
         }
     }
 
     post {
         success {
-            bat 'echo "build successful"'
+            sh 'echo "build successful"'
         }
         failure {
-            bat 'echo "build failed"'
+            sh 'echo "build failed"'
         }
     }
 }
